@@ -16,6 +16,8 @@ int	ft_strlen(const char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -116,7 +118,7 @@ int main()
 {
 	int		fd;
 	char	*output;
-	fd = open("./file", O_RDONLY);
+	fd = open("file", O_RDONLY);
 	output = get_next_line(fd);
 	while (output != NULL)
 	{
