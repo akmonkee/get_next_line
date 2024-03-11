@@ -41,7 +41,8 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 	}
 	if (!buf)
 		return (NULL);
-	fstr = (char *)malloc(ft_strlen(line) + len);
+	fstr = (char *)malloc(ft_strlen(line) + ft_strlen(buf) + 1);
+	printf("test\n");
 	if (!fstr)
 		return (NULL);
 	i = 0;
@@ -83,7 +84,7 @@ char	*ft_strchr(const char *str, int c)
 	while (*str != (char)c)
 	{
 		if (*str == '\0')
-			return (NULL);
+			return (0);
 		str++;
 	}
 	return ((char *) str);
@@ -97,10 +98,12 @@ char	*get_next_line(int fd)
 	int				len;
 
 	buf[BUFFER_SIZE] = '\0';
-	while(len = read(fd, buf, BUFFER_SIZE) > 0)
+	while((len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		if (ft_strchr(buf, '\n') == NULL)
+		{
 			gnl_strjoin(ret, buf, len);
+		}
 		else
 		{
 			ret = gnl_strjoin(ret, buf, ft_strchr(buf, '\n') - buf);
@@ -126,6 +129,5 @@ int main()
 		free(output);
 		output = get_next_line(fd);
 	}
-	free(output);
 	close(fd);
 }
