@@ -34,7 +34,7 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 
 	if (!buf)
 		return (NULL);
-	fstr = malloc(ft_strlen(line) + len + 1);
+	fstr = malloc(ft_strlen(line) + ft_strlen(buf) + 1);
 	if (!fstr)
 		return (NULL);
 	i = 0;
@@ -91,6 +91,7 @@ char	*get_next_line(int fd)
 	int				len;
 
 	ret = NULL;
+	len = 0;
 	ft_in_array(buf);
 	if (storage)
 	{
@@ -105,7 +106,7 @@ char	*get_next_line(int fd)
 		}
 		else
 		{
-			storage = str_clear(buf, storage); //funzione che mette quello che sta dopo \n all-innizio e il resto a \0
+			storage = str_clear(buf, storage);
 			ret = gnl_strjoin(ret, buf, len);
 			break ;
 		}
@@ -124,11 +125,10 @@ int main()
 	char	*output;
 	i = -1;
 	fd = open("file", O_RDONLY);
-	while (++i <= 3)
+	while((output = get_next_line(fd)) != '\0')
 	{
-		output = get_next_line(fd);
 		printf("%s", output);
+		free(output);
 	}
-	free(output);
 	close(fd);
 }
