@@ -23,9 +23,10 @@
 # include <stdio.h>
 
 char	*gnl_strjoin(char *line, char *buf, int len);
-void	str_clear(char *buf, char *storage);
+char	*str_clear(char *buf, char *storage);
 char	*ft_strchr(const char *str, int c);
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
+void	ft_in_array(char *buf);
 
 #endif

@@ -32,16 +32,9 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 	int		c;
 	char	*fstr;
 
-	if (!line)
-	{
-		line = (char *)malloc(sizeof(char) * 1);
-		if(!line)
-			return (NULL);
-		line[0] = '\0';
-	}
 	if (!buf)
 		return (NULL);
-	fstr = (char *)malloc(ft_strlen(line) + ft_strlen(buf) + 1);
+	fstr = malloc(ft_strlen(line) + len + 1);
 	printf("test\n");
 	if (!fstr)
 		return (NULL);
@@ -56,7 +49,7 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 	free(line);
 	return (fstr);
 }
-void	str_clear(char *buf, char *storage)
+char	*str_clear(char *buf, char *storage)
 {
 	int	i;
 	int	k;
@@ -65,18 +58,19 @@ void	str_clear(char *buf, char *storage)
 	k = 0;
 	while (buf[i] != '\n')
 		i++;
-	buf[i] = '\0';
 	while (buf[++i] != '\0')
 		k++;
-	storage = malloc( k + 1);
+	storage = malloc(k + 1);
 	storage[k] = '\0';
 	i = i - k;
 	k = -1;
 	while (buf[i] != '\0')
 	{
 		storage[++k] = buf[i];
+		buf[i] = '\0';
 		i++;
 	}
+	return(storage);
 }
 
 char	*ft_strchr(const char *str, int c)
@@ -97,20 +91,27 @@ char	*get_next_line(int fd)
 	char			*ret;
 	int				len;
 
+	ft_in_array(buf);
 	buf[BUFFER_SIZE] = '\0';
+	if (storage)
+	{
+		ret = gnl_strjoin(ret, storage, len);
+		free(storage);
+	}
 	while((len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		if (ft_strchr(buf, '\n') == NULL)
 		{
-			gnl_strjoin(ret, buf, len);
+			ret = gnl_strjoin(ret, buf, len);
 		}
 		else
 		{
-			ret = gnl_strjoin(ret, buf, ft_strchr(buf, '\n') - buf);
-			str_clear(buf, storage); //funzione che mette quello che sta dopo \n all-innizio e il resto a \0
+			storage = str_clear(buf, storage); //funzione che mette quello che sta dopo \n all-innizio e il resto a \0
+			ret = gnl_strjoin(ret, buf, len);
 			break ;
 		}
 	}
+	printf("storage: %s\n", storage);
 	if (ret && *ret)
 		return (ret);
 	free(ret);
@@ -123,11 +124,7 @@ int main()
 	char	*output;
 	fd = open("file", O_RDONLY);
 	output = get_next_line(fd);
-	while (output != NULL)
-	{
-		printf("%s", output);
-		free(output);
-		output = get_next_line(fd);
-	}
+	printf("%s", output);
+	free(output);
 	close(fd);
 }
