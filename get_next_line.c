@@ -12,11 +12,11 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
-	if (!str)
+	if (str == NULL)
 		return (0);
 	i = 0;
 	while (str[i] != '\0')
@@ -35,12 +35,11 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 	if (!buf)
 		return (NULL);
 	fstr = malloc(ft_strlen(line) + len + 1);
-	printf("test\n");
 	if (!fstr)
 		return (NULL);
 	i = 0;
 	c = 0;
-	while (line[i])
+	while (line && line[i])
 		fstr[c++] = line[i++];
 	i = 0;
 	while (buf[i])
@@ -91,8 +90,8 @@ char	*get_next_line(int fd)
 	char			*ret;
 	int				len;
 
+	ret = NULL;
 	ft_in_array(buf);
-	buf[BUFFER_SIZE] = '\0';
 	if (storage)
 	{
 		ret = gnl_strjoin(ret, storage, len);
@@ -111,7 +110,7 @@ char	*get_next_line(int fd)
 			break ;
 		}
 	}
-	printf("storage: %s\n", storage);
+	// printf("storage: %s\n", storage);
 	if (ret && *ret)
 		return (ret);
 	free(ret);
@@ -120,11 +119,16 @@ char	*get_next_line(int fd)
 
 int main()
 {
+	int	i;
 	int		fd;
 	char	*output;
+	i = -1;
 	fd = open("file", O_RDONLY);
-	output = get_next_line(fd);
-	printf("%s", output);
+	while (++i <= 3)
+	{
+		output = get_next_line(fd);
+		printf("%s", output);
+	}
 	free(output);
 	close(fd);
 }

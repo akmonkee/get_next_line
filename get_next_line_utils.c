@@ -17,7 +17,7 @@ void	ft_in_array(char *buf)
 	int	i;
 
 	i = 0;
-	while (i < BUFFER_SIZE)
+	while (i <= BUFFER_SIZE)
 	{
 		buf[i] = 0;
 		i++;
