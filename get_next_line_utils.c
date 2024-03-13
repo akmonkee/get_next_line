@@ -17,9 +17,20 @@ void	ft_in_array(char *buf)
 	int	i;
 
 	i = 0;
-	while (i <= BUFFER_SIZE)
+	while (i != (BUFFER_SIZE + 1))
 	{
-		buf[i] = 0;
+		buf[i] = '\0';
 		i++;
+	}
+}
+
+void	ft_storageclear(char *storage)
+{
+	int	i;
+
+	i = -1;
+	while (storage[++i] != '\0')
+	{
+			storage[i] = '\0';
 	}
 }

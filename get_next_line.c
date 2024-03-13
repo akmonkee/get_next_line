@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*gnl_strjoin(char *line, char *buf, int len)
+char	*gnl_strjoin(char *line, char *buf)
 {
 	int		i;
 	int		c;
@@ -48,6 +48,7 @@ char	*gnl_strjoin(char *line, char *buf, int len)
 	free(line);
 	return (fstr);
 }
+
 char	*str_clear(char *buf, char *storage)
 {
 	int	i;
@@ -55,7 +56,7 @@ char	*str_clear(char *buf, char *storage)
 
 	i = 0;
 	k = 0;
-	while (buf[i] != '\n')
+	while (buf && buf[i] != '\n')
 		i++;
 	while (buf[++i] != '\0')
 		k++;
@@ -72,15 +73,20 @@ char	*str_clear(char *buf, char *storage)
 	return(storage);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(const char *str)
 {
-	while (*str != (char)c)
+	int	i;
+
+	i = -1;
+	while (str[++i] != '\0')
 	{
-		if (*str == '\0')
-			return (0);
-		str++;
+		printf("str%d: %c\n", i + 1, str[i]);
+		if (str[i] == '\n')
+		{
+			return ("y");
+		}
 	}
-	return ((char *) str);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -95,19 +101,20 @@ char	*get_next_line(int fd)
 	ft_in_array(buf);
 	if (storage)
 	{
-		ret = gnl_strjoin(ret, storage, len);
-		free(storage);
+		ret = gnl_strjoin(ret, storage);
+		ft_storageclear(storage);
 	}
 	while((len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		if (ft_strchr(buf, '\n') == NULL)
+		if (ft_strchr(buf) == NULL)
 		{
-			ret = gnl_strjoin(ret, buf, len);
+			ret = gnl_strjoin(ret, buf);
 		}
 		else
 		{
-			storage = str_clear(buf, storage);
-			ret = gnl_strjoin(ret, buf, len);
+			if (BUFFER_SIZE != 1)
+				storage = str_clear(buf, storage);
+			ret = gnl_strjoin(ret, buf);
 			break ;
 		}
 	}
@@ -125,9 +132,9 @@ int main()
 	char	*output;
 	i = -1;
 	fd = open("file", O_RDONLY);
-	while((output = get_next_line(fd)) != '\0')
+	while((output = get_next_line(fd)) != NULL)
 	{
-		printf("%s", output);
+		// printf("line: %s\n", output);
 		free(output);
 	}
 	close(fd);
