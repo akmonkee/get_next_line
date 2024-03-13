@@ -29,5 +29,6 @@ char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
 void	ft_in_array(char *buf);
 void	ft_storageclear(char *storage);
+void	storage_cpy(char *storage, char *buf);
 
 #endif

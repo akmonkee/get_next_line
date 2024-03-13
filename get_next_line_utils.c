@@ -34,3 +34,15 @@ void	ft_storageclear(char *storage)
 			storage[i] = '\0';
 	}
 }
+
+void	storage_cpy(char *storage, char *buf)
+{
+	int i;
+
+	i = 0;
+	while(storage[i])
+	{
+		buf[i] = storage[i];
+		i++;
+	}
+}

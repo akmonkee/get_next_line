@@ -78,9 +78,8 @@ char	*ft_strchr(const char *str)
 	int	i;
 
 	i = -1;
-	while (str[++i] != '\0')
+	while (str && ++i <= BUFFER_SIZE)
 	{
-		printf("str%d: %c\n", i + 1, str[i]);
 		if (str[i] == '\n')
 		{
 			return ("y");
@@ -94,21 +93,22 @@ char	*get_next_line(int fd)
 	static char		*storage;
 	char			buf[BUFFER_SIZE + 1];
 	char			*ret;
-	int				len;
 
 	ret = NULL;
-	len = 0;
 	ft_in_array(buf);
 	if (storage)
-	{
-		ret = gnl_strjoin(ret, storage);
-		ft_storageclear(storage);
-	}
-	while((len = read(fd, buf, BUFFER_SIZE)) > 0)
+		storage_cpy(storage, buf);
+	// if (storage)
+	// {
+	// 	ret = gnl_strjoin(ret, storage);
+	// 	ft_storageclear(storage);
+	// }
+	while((*buf || read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		if (ft_strchr(buf) == NULL)
 		{
 			ret = gnl_strjoin(ret, buf);
+			ft_in_array(buf);
 		}
 		else
 		{
@@ -119,6 +119,7 @@ char	*get_next_line(int fd)
 		}
 	}
 	// printf("storage: %s\n", storage);
+		printf("line: %s\n", ret);
 	if (ret && *ret)
 		return (ret);
 	free(ret);
