@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/14 12:17:58 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/14 13:26:40 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char	*get_next_line(int fd)
 	char			buf[BUFFER_SIZE + 1];
 	char			*ret;
 
+	if (BUFFER_SIZE < 1 || fd < 0)
+		return (NULL);
 	ret = NULL;
 	ft_in_array(buf);
 	if (storage)
