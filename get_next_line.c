@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/14 10:10:09 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/14 12:17:58 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	*str_clear(char *buf, char *storage)
 	while (buf[++i] != '\0')
 		k++;
 	storage = malloc(k + 1);
+	if (!storage)
+		return (NULL);
 	storage[k] = '\0';
 	i = i - k;
 	k = -1;
@@ -119,17 +121,18 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-int main()
-{
-	int	i;
-	int		fd;
-	char	*output;
-	i = -1;
-	fd = open("file", O_RDONLY);
-	while((output = get_next_line(fd)) != NULL)
-	{
-		// printf("line: %s\n", output);
-		free(output);
-	}
-	close(fd);
-}
+// int main()
+// {
+// 	int	i;
+// 	int		fd;
+// 	char	*output;
+// 	i = -1;
+// 	fd = open("file", O_RDONLY);
+// 	while((output = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("line: %s\n", output);
+// 		free(output);
+// 	}
+// 	printf("line: %s\n", output);
+// 	close(fd);
+// }
