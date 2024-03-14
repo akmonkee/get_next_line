@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msisto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/12 12:28:40 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/14 10:10:26 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	ft_storageclear(char *storage)
 	i = -1;
 	while (storage[++i] != '\0')
 	{
-			storage[i] = '\0';
+		storage[i] = '\0';
 	}
 }
 
 void	storage_cpy(char *storage, char *buf)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(storage[i])
+	while (storage[i])
 	{
 		buf[i] = storage[i];
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msisto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/11 14:15:30 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/14 10:10:09 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*str_clear(char *buf, char *storage)
 		buf[i] = '\0';
 		i++;
 	}
-	return(storage);
+	return (storage);
 }
 
 char	*ft_strchr(const char *str)
@@ -98,12 +98,7 @@ char	*get_next_line(int fd)
 	ft_in_array(buf);
 	if (storage)
 		storage_cpy(storage, buf);
-	// if (storage)
-	// {
-	// 	ret = gnl_strjoin(ret, storage);
-	// 	ft_storageclear(storage);
-	// }
-	while((*buf || read(fd, buf, BUFFER_SIZE)) > 0)
+	while ((*buf || read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		if (ft_strchr(buf) == NULL)
 		{
@@ -118,8 +113,6 @@ char	*get_next_line(int fd)
 			break ;
 		}
 	}
-	// printf("storage: %s\n", storage);
-		printf("line: %s\n", ret);
 	if (ret && *ret)
 		return (ret);
 	free(ret);
