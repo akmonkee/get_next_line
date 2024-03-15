@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/14 14:55:14 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/15 10:20:00 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 	ft_in_array(buf);
 	if (storage)
 		storage_cpy(storage, buf);
-	while ((*buf || read(fd, buf, BUFFER_SIZE)) > 0)
+	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		if (ft_strchr(buf) == NULL)
 		{
@@ -125,12 +125,10 @@ char	*get_next_line(int fd)
 
 // int main()
 // {
-// 	int	i;
 // 	int		fd;
 // 	char	*output;
-// 	i = -1;
-// 	// fd = open("file", O_RDONLY);
-// 	fd = -1;
+
+// 	fd = open("file", O_RDONLY);
 // 	while ((output = get_next_line(fd)) != NULL)
 // 	{
 // 		printf("line: %s\n", output);
