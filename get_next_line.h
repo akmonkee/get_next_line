@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msisto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:07:53 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/11 15:07:59 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/18 14:15:04 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*ft_strchr(const char *str);
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
 void	ft_in_array(char *buf);
-void	ft_storageclear(char *storage);
 void	storage_cpy(char *storage, char *buf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/18 10:43:28 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/18 14:51:33 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,18 @@ char	*str_clear(char *buf, char *storage)
 	while (buf[++i] != '\0')
 		k++;
 	storage = malloc(k + 1);
-	if (!storage)
+	if (storage == NULL)
 		return (NULL);
 	storage[k] = '\0';
 	i = i - k;
 	k = -1;
-	while (buf[i] != '\0')
+	while (buf[++i] != '\0' && storage[++k] != '\0')
 	{
-		storage[++k] = buf[i];
+		storage[k] = buf[i];
 		buf[i] = '\0';
-		i++;
 	}
+	printf("buf: %s\n", &buf[0]);
+	printf("storage: %s\n", storage);
 	return (storage);
 }
 
@@ -100,7 +101,7 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	ft_in_array(buf);
-	if (storage != NULL)
+	if (storage)
 		storage_cpy(storage, buf);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
@@ -118,9 +119,21 @@ char	*get_next_line(int fd)
 			break ;
 		}
 	}
-	printf("buf: %s\n", &buf[0]);
-	if (buf)
-		ret = gnl_strjoin(ret, buf);
+	if (&buf[0] != NULL)
+	{
+		if (ft_strchr(buf) == NULL)
+		{
+			ret = gnl_strjoin(ret, buf);
+			ft_in_array(buf);
+		}
+		else
+		{
+			if (BUFFER_SIZE != 1)
+				storage = str_clear(buf, storage);
+			ret = gnl_strjoin(ret, buf);
+			ft_in_array(buf);
+		}
+	}
 	if (ret && *ret)
 		return (ret);
 	free(ret);

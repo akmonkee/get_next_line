@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/18 10:38:11 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/18 14:39:12 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,10 @@ void	ft_in_array(char *buf)
 	int	i;
 
 	i = 0;
-	while (i != (BUFFER_SIZE + 1))
+	while (i <= BUFFER_SIZE)
 	{
 		buf[i] = '\0';
 		i++;
-	}
-}
-
-void	ft_storageclear(char *storage)
-{
-	int	i;
-
-	i = -1;
-	while (storage[++i] != '\0')
-	{
-		storage[i] = '\0';
 	}
 }
 
