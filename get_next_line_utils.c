@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/14 10:10:26 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/18 10:38:11 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	storage_cpy(char *storage, char *buf)
 	while (storage[i])
 	{
 		buf[i] = storage[i];
+		storage[i] = '\0';
 		i++;
 	}
 }

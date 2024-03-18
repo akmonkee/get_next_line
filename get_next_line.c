@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/15 11:47:57 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/18 10:43:28 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	ft_in_array(buf);
-	if (storage)
+	if (storage != NULL)
 		storage_cpy(storage, buf);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
@@ -114,26 +114,30 @@ char	*get_next_line(int fd)
 			if (BUFFER_SIZE != 1)
 				storage = str_clear(buf, storage);
 			ret = gnl_strjoin(ret, buf);
+			ft_in_array(buf);
 			break ;
 		}
 	}
+	printf("buf: %s\n", &buf[0]);
+	if (buf)
+		ret = gnl_strjoin(ret, buf);
 	if (ret && *ret)
 		return (ret);
 	free(ret);
 	return (NULL);
 }
 
-// int main()
-// {
-// 	int		fd;
-// 	char	*output;
+int main()
+{
+	int		fd;
+	char	*output;
 
-// 	fd = open("file", O_RDONLY);
-// 	while ((output = get_next_line(fd)) != NULL)
-// 	{
-// 		// printf("line: %s\n", output);
-// 		free(output);
-// 	}
-// 	// printf("line: %s\n", output);
-// 	close(fd);
-// }
+	fd = open("file", O_RDONLY);
+	while ((output = get_next_line(fd)) != NULL)
+	{
+		// printf("line: %s\n", output);
+		free(output);
+	}
+	// printf("line: %s\n", output);
+	close(fd);
+}
