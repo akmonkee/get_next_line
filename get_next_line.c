@@ -6,11 +6,26 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/18 14:51:33 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/19 11:46:27 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strchr(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str && ++i <= BUFFER_SIZE)
+	{
+		if (str[i] == '\n')
+		{
+			return (&str[i]);
+		}
+	}
+	return (NULL);
+}
 
 int	ft_strlen(const char *str)
 {
@@ -45,18 +60,20 @@ char	*gnl_strjoin(char *line, char *buf)
 	while (buf[i])
 		fstr[c++] = buf[i++];
 	fstr[c] = '\0';
-	free(line);
+	if (line)
+		free(line);
 	return (fstr);
 }
 
-char	*str_clear(char *buf, char *storage)
+char	*str_clear(char *buf)
 {
-	int	i;
-	int	k;
+	int			i;
+	int			k;
+	char		*storage;
 
 	i = 0;
 	k = 0;
-	while (buf && buf[i] != '\n')
+	while (&buf[i] != ft_strchr(buf))
 		i++;
 	while (buf[++i] != '\0')
 		k++;
@@ -66,29 +83,13 @@ char	*str_clear(char *buf, char *storage)
 	storage[k] = '\0';
 	i = i - k;
 	k = -1;
-	while (buf[++i] != '\0' && storage[++k] != '\0')
+	while (buf[i] != '\0')
 	{
-		storage[k] = buf[i];
+		storage[++k] = buf[i];
 		buf[i] = '\0';
+		i++;
 	}
-	printf("buf: %s\n", &buf[0]);
-	printf("storage: %s\n", storage);
 	return (storage);
-}
-
-char	*ft_strchr(const char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str && ++i <= BUFFER_SIZE)
-	{
-		if (str[i] == '\n')
-		{
-			return ("y");
-		}
-	}
-	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -102,37 +103,13 @@ char	*get_next_line(int fd)
 		return (NULL);
 	ft_in_array(buf);
 	if (storage)
+	{
 		storage_cpy(storage, buf);
+		ret = ft_output_set(storage, buf);
+	}
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-		if (ft_strchr(buf) == NULL)
-		{
-			ret = gnl_strjoin(ret, buf);
-			ft_in_array(buf);
-		}
-		else
-		{
-			if (BUFFER_SIZE != 1)
-				storage = str_clear(buf, storage);
-			ret = gnl_strjoin(ret, buf);
-			ft_in_array(buf);
-			break ;
-		}
-	}
-	if (&buf[0] != NULL)
-	{
-		if (ft_strchr(buf) == NULL)
-		{
-			ret = gnl_strjoin(ret, buf);
-			ft_in_array(buf);
-		}
-		else
-		{
-			if (BUFFER_SIZE != 1)
-				storage = str_clear(buf, storage);
-			ret = gnl_strjoin(ret, buf);
-			ft_in_array(buf);
-		}
+		ret = ft_output_set(storage, buf);
 	}
 	if (ret && *ret)
 		return (ret);
@@ -148,8 +125,9 @@ int main()
 	fd = open("file", O_RDONLY);
 	while ((output = get_next_line(fd)) != NULL)
 	{
-		// printf("line: %s\n", output);
+		printf("line: %s", output);
 		free(output);
+		//sleep(3);
 	}
 	// printf("line: %s\n", output);
 	close(fd);
