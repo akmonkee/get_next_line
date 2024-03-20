@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 11:56:43 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:45:46 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_output_set(char *ret, char *buf)
 	return (ret);
 }
 
-void	*update_ret(char *ret)
+char	*update_ret(char *ret)
 {
 	int		i;
 	int		k;
@@ -44,16 +44,18 @@ void	*update_ret(char *ret)
 		return (NULL);
 	while (ret[i] && ret[i] != '\n')
 		i++;
-	while (ret[++i])
+	while (ret[++i] != '\0')
 		k++;
 	temp = malloc(k + 1);
+	if (!temp)
+		return (NULL);
 	i = i - k;
 	k = -1;
 	while (ret[i] != '\0')
 	{
 		temp[++k] = ret[i];
+		i++;
 	}
 	temp[i] = '\0';
-	free(ret);
-	ret = temp;
+	return (temp);
 }

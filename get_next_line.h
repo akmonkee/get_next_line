@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:07:53 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 11:50:39 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:46:12 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
 void	ft_in_array(char *buf);
 char	*print_out(char *ret);
-void	*update_ret(char *ret);
+char	*update_ret(char *ret);
 char	*ft_output_set(char *ret, char *buf);
 
 #endif

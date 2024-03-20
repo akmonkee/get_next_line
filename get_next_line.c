@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 11:56:53 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:46:47 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,9 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
-	{
 		ret = ft_output_set(ret, buf);
-	}
-	ft_in_array(buf);
 	output = print_out(ret);
-	update_ret(ret);
-	printf("test\n");
+	ret = update_ret(ret);
 	return (output);
 }
 
@@ -119,7 +115,7 @@ int main()
 	{
 		printf("line: %s", output);
 		free(output);
-		//sleep(3);
+		// sleep(10000000);
 	}
 	// printf("line: %s\n", output);
 	close(fd);
