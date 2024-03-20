@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/19 11:43:32 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 11:56:43 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,36 @@ void	ft_in_array(char *buf)
 	}
 }
 
-void	storage_cpy(char *storage, char *buf)
+char	*ft_output_set(char *ret, char *buf)
 {
-	int	i;
-
-	i = 0;
-	while (storage && storage[i] != '\n')
-	{
-		buf[i] = storage[i];
-		storage[i] = '\n';
-		i++;
-	}
+	ret = gnl_strjoin(ret, buf);
+	ft_in_array(buf);
+	return (ret);
 }
 
-char	*ft_output_set(char *storage, char *buf)
+void	*update_ret(char *ret)
 {
-	char	*ret;
+	int		i;
+	int		k;
+	char	*temp;
 
-	if (!ft_strchr(buf))
+	k = 0;
+	i = 0;
+	temp = NULL;
+	if (ret[0] == '\0')
+		return (NULL);
+	while (ret[i] && ret[i] != '\n')
+		i++;
+	while (ret[++i])
+		k++;
+	temp = malloc(k + 1);
+	i = i - k;
+	k = -1;
+	while (ret[i] != '\0')
 	{
-		ret = gnl_strjoin(ret, buf);
-		ft_in_array(buf);
+		temp[++k] = ret[i];
 	}
-	else
-	{
-		storage = str_clear(buf);
-		ret = gnl_strjoin(ret, buf);
-		ft_in_array(buf);
-	}
-	return (ret);
+	temp[i] = '\0';
+	free(ret);
+	ret = temp;
 }

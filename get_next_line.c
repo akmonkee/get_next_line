@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/19 11:46:27 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 11:56:53 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,56 +65,48 @@ char	*gnl_strjoin(char *line, char *buf)
 	return (fstr);
 }
 
-char	*str_clear(char *buf)
+char	*print_out(char *ret)
 {
-	int			i;
-	int			k;
-	char		*storage;
+	char	*output;
+	int		i;
 
 	i = 0;
-	k = 0;
-	while (&buf[i] != ft_strchr(buf))
-		i++;
-	while (buf[++i] != '\0')
-		k++;
-	storage = malloc(k + 1);
-	if (storage == NULL)
+	if (ret[0] == '\0')
 		return (NULL);
-	storage[k] = '\0';
-	i = i - k;
-	k = -1;
-	while (buf[i] != '\0')
+	while (ret[i] && ret[i] != '\n')
+		i++;
+	output = malloc(i + 2);
+	i = -1;
+	while (ret[++i] && ret[i] != '\n')
 	{
-		storage[++k] = buf[i];
-		buf[i] = '\0';
+		output[i] = ret[i];
+	}
+	if (ret[i] == '\n')
+	{
+		output[i] = '\n';
 		i++;
 	}
-	return (storage);
+	output[i] = '\0';
+	return (output);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*storage;
+	char			*output;
 	char			buf[BUFFER_SIZE + 1];
-	char			*ret;
+	static char		*ret;
 
-	ret = NULL;
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
-	ft_in_array(buf);
-	if (storage)
-	{
-		storage_cpy(storage, buf);
-		ret = ft_output_set(storage, buf);
-	}
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-		ret = ft_output_set(storage, buf);
+		ret = ft_output_set(ret, buf);
 	}
-	if (ret && *ret)
-		return (ret);
-	free(ret);
-	return (NULL);
+	ft_in_array(buf);
+	output = print_out(ret);
+	update_ret(ret);
+	printf("test\n");
+	return (output);
 }
 
 int main()
