@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:07:53 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 14:54:26 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:32:25 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int		ft_strlen(const char *str);
 void	ft_in_array(char *buf);
 char	*print_out(char *ret);
 char	*update_ret(char *ret);
-char	*ft_output_set(char *ret, char *buf);
 
 #endif

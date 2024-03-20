@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 14:47:44 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:32:18 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ void	ft_in_array(char *buf)
 		buf[i] = '\0';
 		i++;
 	}
-}
-
-char	*ft_output_set(char *ret, char *buf)
-{
-	ret = gnl_strjoin(ret, buf);
-	ft_in_array(buf);
-	return (ret);
 }
 
 char	*update_ret(char *ret)
