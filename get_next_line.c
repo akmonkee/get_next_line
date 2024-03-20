@@ -6,26 +6,11 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 12:53:50 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:54:14 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strchr(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str && ++i <= BUFFER_SIZE)
-	{
-		if (str[i] == '\n')
-		{
-			return (&str[i]);
-		}
-	}
-	return (NULL);
-}
 
 int	ft_strlen(const char *str)
 {
@@ -100,7 +85,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 		ret = ft_output_set(ret, buf);
-	if (!ret)
+	if (ret[0] == '\0')
 		return (NULL);
 	output = print_out(ret);
 	ret = update_ret(ret);

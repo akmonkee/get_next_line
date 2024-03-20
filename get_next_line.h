@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:07:53 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 12:57:46 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:54:26 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 char	*gnl_strjoin(char *line, char *buf);
 char	*str_clear(char *buf);
-char	*ft_strchr(char *str);
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
 void	ft_in_array(char *buf);
