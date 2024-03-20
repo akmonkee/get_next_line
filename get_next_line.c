@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 12:46:47 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:53:50 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 		ret = ft_output_set(ret, buf);
+	if (!ret)
+		return (NULL);
 	output = print_out(ret);
 	ret = update_ret(ret);
 	return (output);
