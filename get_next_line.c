@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 15:40:56 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/21 14:15:41 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ int	ft_strlen(const char *str)
 {
 	int	i;
 
+	i = 0;
 	if (!str)
 		return (0);
-	i = 0;
 	while (str[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -83,6 +81,7 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
+	ft_in_array(buf);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		ret = gnl_strjoin(ret, buf);
@@ -92,21 +91,24 @@ char	*get_next_line(int fd)
 		return (NULL);
 	output = print_out(ret);
 	ret = update_ret(ret);
-	return (output);
+	if (output && *output)
+		return (output);
+	free(output);
+	return (NULL);
 }
 
-// int main()
-// {
-// 	int		fd;
-// 	char	*output;
+int main()
+{
+	int		fd;
+	char	*output;
 
-// 	fd = open("file", O_RDONLY);
-// 	while ((output = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("line: %s", output);
-// 		free(output);
-// 		// sleep(10000000);
-// 	}
-// 	printf("line: %s\n", output);
-// 	close(fd);
-// }
+	fd = open("file", O_RDONLY);
+	while ((output = get_next_line(fd)) != NULL)
+	{
+		printf("line: %s", output);
+		free(output);
+		// sleep(10000000);
+	}
+	printf("line: %s\n", output);
+	close(fd);
+}

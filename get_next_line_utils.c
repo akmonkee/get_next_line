@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:28:36 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/20 15:32:18 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/21 14:18:14 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ char	*update_ret(char *ret)
 
 	k = 0;
 	i = 0;
-	temp = NULL;
 	if (ret[0] == '\0')
+	{
+		free(ret);
 		return (NULL);
+	}
 	while (ret[i] && ret[i] != '\n')
 		i++;
 	while (ret[++i] != '\0')
@@ -46,9 +48,10 @@ char	*update_ret(char *ret)
 	k = -1;
 	while (ret[i] != '\0')
 	{
-		temp[++k] = ret[i];
+		temp[k] = ret[i];
 		i++;
 	}
 	temp[k + 1] = '\0';
+	free(ret);
 	return (temp);
 }
