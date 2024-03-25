@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/21 14:56:18 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/25 10:00:23 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ char	*gnl_strjoin(char *line, char *buf)
 	c = 0;
 	while (line && line[i])
 		fstr[c++] = line[i++];
+	printf("fstr1: %s\n", fstr);
 	i = 0;
-	while (buf[i])
+	while (buf && buf[i])
 		fstr[c++] = buf[i++];
 	fstr[c] = '\0';
+	printf("fstr2: %s\n", fstr);
 	if (line)
 		free(line);
 	return (fstr);
@@ -59,6 +61,8 @@ char	*print_out(char *ret)
 	while (ret[i] && ret[i] != '\n')
 		i++;
 	output = malloc(i + 2);
+	if (!output)
+		return (NULL);
 	i = -1;
 	while (ret[++i] && ret[i] != '\n')
 	{
@@ -105,10 +109,10 @@ int main()
 	fd = open("file", O_RDONLY);
 	while ((output = get_next_line(fd)) != NULL)
 	{
-		printf("line: %s", output);
+		// printf("line: %s", output);
 		free(output);
 		// sleep(10000000);
 	}
-	printf("line: %s\n", output);
+	// printf("line: %s\n", output);
 	close(fd);
 }
