@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/25 10:40:40 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/25 15:38:30 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ char	*gnl_strjoin(char *line, char *buf)
 	c = 0;
 	while (line && line[i])
 		fstr[c++] = line[i++];
-	printf("fstr1: %s\n", fstr);
 	i = 0;
 	while (buf && buf[i])
 		fstr[c++] = buf[i++];
-	printf("fstr2: %s\n", fstr);
+	printf("fstr: %s\n", fstr);
 	fstr[c] = '\0';
 	free(line);
 	return (fstr);
