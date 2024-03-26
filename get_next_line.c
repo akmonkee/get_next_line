@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/26 12:21:08 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:47:56 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,14 @@ char	*get_next_line(int fd)
 		ft_in_array(buf);
 	}
 	if (!ret)
+	{
 		return (NULL);
+	}
+	if (ret[0] == '\0')
+	{
+		free(ret);
+		return (NULL);
+	}
 	output = print_out(ret);
 	ret = update_ret(ret);
 	if (output && *output)
