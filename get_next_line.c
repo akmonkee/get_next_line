@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/26 15:40:54 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/27 13:31:13 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*gnl_strjoin(char *line, char *buf)
 
 	if (!buf)
 		return (NULL);
-	fstr = NULL;
 	fstr = malloc(ft_strlen(line) + ft_strlen(buf) + 1);
 	if (!fstr)
 		return (NULL);
@@ -54,7 +53,6 @@ char	*print_out(char *ret)
 	int		i;
 
 	i = 0;
-	output = NULL;
 	if (ret[0] == '\0')
 		return (NULL);
 	while (ret[i] && ret[i] != '\n')
@@ -84,11 +82,15 @@ char	*update_ret(char *ret)
 
 	k = 0;
 	i = 0;
-	temp = NULL;
-	if (ret[0] == '\0')
+	if (!ret)
 		return (NULL);
 	while (ret[i] && ret[i] != '\n')
 		i++;
+	if (!ret[i])
+	{
+		free(ret);
+		return (NULL);
+	}
 	temp = malloc(ft_strlen(ret) - i + 1);
 	if (!temp)
 		return (NULL);
@@ -109,7 +111,6 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
-	output = NULL;
 	ft_in_array(buf);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
@@ -131,18 +132,18 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-// int main()
-// {
-// 	int		fd;
-// 	char	*output;
+int main()
+{
+	int		fd;
+	char	*output;
 
-// 	fd = open("file", O_RDONLY);
-// 	while ((output = get_next_line(fd)) != NULL)
-// 	{
-// 		// printf("line: %s", output);
-// 		free(output);
-// 	}
-// 	// printf("line: %s", output);
-// 	free(output);
-// 	close(fd);
-// }
+	fd = open("file", O_RDONLY);
+	while ((output = get_next_line(fd)) != NULL)
+	{
+		printf("line: %s", output);
+		free(output);
+	}
+	printf("line: %s", output);
+	free(output);
+	close(fd);
+}
