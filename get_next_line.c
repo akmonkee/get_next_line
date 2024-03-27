@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/03/27 13:31:13 by msisto           ###   ########.fr       */
+/*   Updated: 2024/03/27 14:45:01 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,18 +132,18 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-int main()
-{
-	int		fd;
-	char	*output;
+// int main()
+// {
+// 	int		fd;
+// 	char	*output;
 
-	fd = open("file", O_RDONLY);
-	while ((output = get_next_line(fd)) != NULL)
-	{
-		printf("line: %s", output);
-		free(output);
-	}
-	printf("line: %s", output);
-	free(output);
-	close(fd);
-}
+// 	fd = open("file", O_RDONLY);
+// 	while ((output = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("line: %s", output);
+// 		free(output);
+// 	}
+// 	printf("line: %s", output);
+// 	free(output);
+// 	close(fd);
+// }
