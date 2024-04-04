@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/04/02 12:02:28 by msisto           ###   ########.fr       */
+/*   Updated: 2024/04/04 10:22:42 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ char	*print_out(char *ret)
 		return (NULL);
 	i = -1;
 	while (ret[++i] && ret[i] != '\n')
-	{
 		output[i] = ret[i];
-	}
 	if (ret[i] == '\n')
 	{
 		output[i] = '\n';
@@ -99,8 +97,7 @@ char	*update_ret(char *ret)
 	while (ret[i])
 		temp[k++] = ret[i++];
 	temp[k] = '\0';
-	free(ret);
-	return (temp);
+	return (free(ret), temp);
 }
 
 char	*get_next_line(int fd)
@@ -108,42 +105,42 @@ char	*get_next_line(int fd)
 	char			*output;
 	char			buf[BUFFER_SIZE + 1];
 	static char		*ret;
+	int				i;
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	ft_in_array(buf);
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	i = 1;
+	while (!ft_strchr(buf, '\n') && i > 0)
 	{
+		i = read(fd, buf, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(ret);
+			return (NULL);
+		}
 		ret = gnl_strjoin(ret, buf);
 		ft_in_array(buf);
-	}
-	if (!ret)
-		return (NULL);
-	if (ret[0] == '\0')
-	{
-		free(ret);
-		return (NULL);
 	}
 	output = print_out(ret);
 	ret = update_ret(ret);
 	if (output && *output)
 		return (output);
-	free(output);
-	return (NULL);
+	return (free(output), NULL);
 }
 
-int main()
-{
-	int		fd;
-	char	*output;
+// int main()
+// {
+// 	int		fd;
+// 	char	*output;
 
-	fd = open("file", O_RDONLY);
-	while ((output = get_next_line(fd)) != NULL)
-	{
-		printf("%s", output);
-		free(output);
-	}
-	printf("%s", output);
-	free(output);
-	close(fd);
-}
+// 	fd = open("file", O_RDONLY);
+// 	while ((output = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", output);
+// 		free(output);
+// 	}
+// 	printf("%s", output);
+// 	free(output);
+// 	close(fd);
+// }
