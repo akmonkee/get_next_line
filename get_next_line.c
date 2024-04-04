@@ -6,7 +6,7 @@
 /*   By: msisto <msisto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:15:23 by msisto            #+#    #+#             */
-/*   Updated: 2024/04/04 10:22:42 by msisto           ###   ########.fr       */
+/*   Updated: 2024/04/04 15:54:25 by msisto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	ft_in_array(buf);
 	i = 1;
-	while (!ft_strchr(buf, '\n') && i > 0)
+	while (!ft_strchr(ret, '\n') && i > 0)
 	{
 		i = read(fd, buf, BUFFER_SIZE);
 		if (i == -1)
